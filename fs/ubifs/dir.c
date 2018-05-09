@@ -474,7 +474,8 @@ out:
 	file->private_data = NULL;
 
 	if (err != -ENOENT)
-		ubifs_err("cannot find next direntry, error %d", err);
+		ubifs_err("cannot find next direntry, error %d", c->vi.ubi_num,
+				err);
 	else
 		/*
 		 * -ENOENT is a non-fatal error in this context, the TNC uses
@@ -482,7 +483,6 @@ out:
 		 * and readdir() has to stop.
 		 */
 		err = 0;
-
 
 
 	/* 2 is a special value indicating that there are no more direntries */

@@ -540,7 +540,6 @@ static void mmc_wait_data_done(struct mmc_request *mrq)
 
 	context_info->is_done_rcv = true;
 	wake_up_interruptible(&context_info->wait);
-
 }
 
 /**
@@ -707,7 +706,6 @@ static int mmc_wait_for_data_req_done(struct mmc_host *host,
 	struct mmc_context_info *context_info = &host->context_info;
 	bool pending_is_urgent = false;
 	bool is_urgent = false;
-	bool is_done_rcv = false;
 	int err, ret;
 	unsigned long flags;
 
@@ -718,10 +716,9 @@ static int mmc_wait_for_data_req_done(struct mmc_host *host,
 				 context_info->is_urgent));
 		spin_lock_irqsave(&context_info->lock, flags);
 		is_urgent = context_info->is_urgent;
-		is_done_rcv = context_info->is_done_rcv;
 		context_info->is_waiting_last_req = false;
 		spin_unlock_irqrestore(&context_info->lock, flags);
-		if (is_done_rcv) {
+		if (context_info->is_done_rcv) {
 			context_info->is_done_rcv = false;
 			context_info->is_new_req = false;
 			cmd = mrq->cmd;

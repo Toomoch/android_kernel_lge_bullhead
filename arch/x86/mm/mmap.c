@@ -71,9 +71,9 @@ static unsigned long mmap_rnd(void)
 
 	if (mmap_is_ia32())
 #ifdef CONFIG_COMPAT
-			rnd = get_random_long() & ((1UL << mmap_rnd_compat_bits) - 1);
+		rnd = get_random_long() & ((1UL << mmap_rnd_compat_bits) - 1);
 #else
-			rnd = get_random_long() & ((1UL << mmap_rnd_bits) - 1);
+		rnd = get_random_long() & ((1UL << mmap_rnd_bits) - 1);
 #endif
 	else
 		rnd = get_random_long() & ((1UL << mmap_rnd_bits) - 1);

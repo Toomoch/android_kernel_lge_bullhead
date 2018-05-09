@@ -14,8 +14,11 @@
  * See the file COPYING for more details.
  */
 
+#include <linux/smp.h>
 #include <linux/errno.h>
 #include <linux/types.h>
+#include <linux/percpu.h>
+#include <linux/cpumask.h>
 #include <linux/rcupdate.h>
 #include <linux/static_key.h>
 
